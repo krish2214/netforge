@@ -8,10 +8,10 @@
 
 The first published release currently includes tested Linux builds:
 
-- [Linux x86_64 AppImage](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.8/netforge-1.0.0-rc.8-x86_64.AppImage)
-- [Linux ARM64 AppImage](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.8/netforge-1.0.0-rc.8-arm64.AppImage)
-- [Debian / Ubuntu x86_64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.8/netforge_1.0.0-rc.8_amd64.deb)
-- [Debian / Ubuntu ARM64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.8/netforge_1.0.0-rc.8_arm64.deb)
+- [Linux x86_64 AppImage](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge-1.0.0-rc.9-x86_64.AppImage)
+- [Linux ARM64 AppImage](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge-1.0.0-rc.9-arm64.AppImage)
+- [Debian / Ubuntu x86_64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge_1.0.0-rc.9_amd64.deb)
+- [Debian / Ubuntu ARM64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge_1.0.0-rc.9_arm64.deb)
 - [All releases](https://github.com/krish2214/netforge/releases)
 
 macOS and Windows installers require native builds on their respective operating systems and are not included in this Linux-built release yet. They will be added to the releases page after native validation.

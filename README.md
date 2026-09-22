@@ -14,7 +14,7 @@ The first published release currently includes tested Linux builds:
 - [Debian / Ubuntu ARM64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge_1.0.0-rc.9_arm64.deb)
 - [All releases](https://github.com/krish2214/netforge/releases)
 
-macOS and Windows installers require native builds on their respective operating systems and are not included in this Linux-built release yet. They will be added to the releases page after native validation.
+Portable macOS and Windows ZIP builds are included in rc.9; native signed installers still require platform-specific signing.
 
 ## Highlights
 

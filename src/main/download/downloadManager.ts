@@ -150,6 +150,10 @@ const debug: (...args: unknown[]) => void = process.env['NETFORGE_DEBUG']
   : () => {}
 
 const PROGRESS_THROTTLE_MS = 200
+// UI updates can be frequent, but serializing and atomically rewriting the full manifest on every
+// update adds avoidable disk and JSON work to the transfer hot path. A one-second checkpoint is
+// still safe for pause/crash recovery because explicit lifecycle transitions call persistNow().
+const PERSISTENCE_THROTTLE_MS = 1000
 
 // Raw per-event deltas are too noisy to display (socket buffers flush in
 // irregular bursts a few ms apart). Averaging over a few seconds instead
@@ -863,6 +867,9 @@ export class DownloadManager {
     runtime.state.assembledBytes = 0
     runtime.state.speedBytesPerSec = 0
     this.pushUpdate(runtime)
+    // This is a recovery boundary: if the process stops during reassembly, restore must see the
+    // assembling state immediately rather than waiting for the background progress checkpoint.
+    await this.persistNow(runtime)
 
     try {
       await this.reassemble(runtime)
@@ -1731,7 +1738,7 @@ export class DownloadManager {
     runtime.persistenceTimer = setTimeout(() => {
       runtime.persistenceTimer = undefined
       void this.persistNow(runtime)
-    }, PROGRESS_THROTTLE_MS)
+    }, PERSISTENCE_THROTTLE_MS)
   }
 
   private persistNow(runtime: DownloadRuntime): Promise<void> {

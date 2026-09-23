@@ -167,7 +167,13 @@ export function downloadChunk(options: ChunkDownloadOptions): Promise<void> {
 
     // The whole file from the start needs no Range at all — and an empty file would answer
     // `bytes=0-` with 416, since it has no byte 0 to start from.
-    const headers: Record<string, string> = { 'User-Agent': 'NetForge/1.0' }
+    const headers: Record<string, string> = {
+      'User-Agent': 'NetForge/1.0',
+      // Ranges must map byte-for-byte to the part file. Avoid transparent compression, which also
+      // makes CDN range responses needlessly expensive to decode in the main process.
+      'Accept-Encoding': 'identity',
+      Connection: 'keep-alive'
+    }
     if (rangeStart > 0 || rangeEnd !== null) {
       headers['Range'] =
         rangeEnd === null ? `bytes=${rangeStart}-` : `bytes=${rangeStart}-${rangeEnd}`
@@ -253,7 +259,8 @@ export function downloadChunk(options: ChunkDownloadOptions): Promise<void> {
           onResponse?.({ ttfbMs: Date.now() - sentAt, reusedSocket: req.reusedSocket })
 
           const fileStream: WriteStream = createWriteStream(destinationPath, {
-            flags: append ? 'a' : 'w'
+            flags: append ? 'a' : 'w',
+            highWaterMark: 1024 * 1024
           })
           currentFileStream = fileStream
 

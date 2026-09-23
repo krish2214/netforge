@@ -48,7 +48,7 @@ export function IdleScreen(): React.JSX.Element {
   const [probe, setProbe] = useState<ProbeState>({ status: 'idle' })
   // Tracks deselections rather than selections, so a newly-detected interface starts selected.
   const [deselectedInterfaceIds, setDeselectedInterfaceIds] = useState<string[]>([])
-  const [chunksPerNetwork, setChunksPerNetwork] = useState(2)
+  const [chunksPerNetwork, setChunksPerNetwork] = useState(4)
   const [starting, setStarting] = useState(false)
   const [startError, setStartError] = useState<string | null>(null)
   const [fileNameOverride, setFileNameOverride] = useState<string | null>(null)

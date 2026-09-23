@@ -131,6 +131,7 @@ export function DownloadingScreen({ download }: { download: DownloadState }): Re
   // status away from 'paused' (an ETag re-check over the network for a real download) — with no
   // feedback in between, a slow check reads as the button not having registered the click.
   const [resuming, setResuming] = useState(false)
+  const [actionError, setActionError] = useState<string | null>(null)
   useEffect(() => {
     if (!isPaused || download.error) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -157,15 +158,24 @@ export function DownloadingScreen({ download }: { download: DownloadState }): Re
   const elapsedSeconds = Math.max(0, (now - download.startedAt - totalPausedMs) / 1000)
 
   const handlePauseResume = (): void => {
+    setActionError(null)
     if (isPaused) {
       setResuming(true)
-      void window.netforge.resumeDownload(download.id)
+      void window.netforge.resumeDownload(download.id).catch((error: unknown) => {
+        setResuming(false)
+        setActionError(error instanceof Error ? error.message : String(error))
+      })
     } else {
-      void window.netforge.pauseDownload(download.id)
+      void window.netforge.pauseDownload(download.id).catch((error: unknown) => {
+        setActionError(error instanceof Error ? error.message : String(error))
+      })
     }
   }
   const handleConfirmCancel = (): void => {
-    void window.netforge.cancelDownload(download.id)
+    setActionError(null)
+    void window.netforge.cancelDownload(download.id).catch((error: unknown) => {
+      setActionError(error instanceof Error ? error.message : String(error))
+    })
   }
 
   const effectiveSpeed = isPaused ? 0 : download.speedBytesPerSec
@@ -425,6 +435,11 @@ export function DownloadingScreen({ download }: { download: DownloadState }): Re
             </>
           )}
         </div>
+        {actionError && (
+          <div role="alert" className="max-w-[260px] truncate font-mono text-[10px] text-destructive">
+            {actionError}
+          </div>
+        )}
         <WhileAssembling active={isAssembling} text="Can’t pause while assembling the file">
           <Button
             type="button"

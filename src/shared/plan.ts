@@ -5,7 +5,7 @@
 const MIB = 1024 * 1024
 
 /** The largest block, for any file the block-count cap doesn't force bigger. */
-export const DEFAULT_MAX_BLOCK_BYTES = 8 * MIB
+export const DEFAULT_MAX_BLOCK_BYTES = 16 * MIB
 
 /** No block is planned smaller than this: each block is its own request, and below about a
  * megabyte the round trips cost more than splitting the file saves. */

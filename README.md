@@ -1,20 +1,29 @@
 # NetForge
 
-**NetForge** is a desktop download manager that combines multiple network connections—Wi‑Fi, Ethernet, and tethered phones—to download one file in parallel.
+**NetForge** is a focused desktop download workbench that combines multiple network connections—Wi‑Fi, Ethernet, and tethered phones—to download one file in parallel.
 
 > NetForge is an independent renamed distribution maintained by **Krish2214**. It is based on the MIT-licensed Plexo codebase; the upstream copyright notice is retained in [`LICENSE`](LICENSE).
 
+## Live website
+
+**Production site:** [https://krish2214.github.io/netforge/](https://krish2214.github.io/netforge/)
+
+The website is published from `main/docs` with GitHub Pages. It includes the release shelf, platform filtering and search, direct artifact links, copyable URLs, a system walkthrough, theme persistence, and a clickable application screenshot gallery.
+
 ## Downloads
 
-The first published release currently includes tested Linux builds:
+The public [v1.0.0-rc.9 release](https://github.com/krish2214/netforge/releases/tag/v1.0.0-rc.9) includes:
 
+- [Windows x64 portable ZIP](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/NetForge-1.0.0-rc.9-win.zip)
+- [Windows ARM64 portable ZIP](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/NetForge-1.0.0-rc.9-arm64-win.zip)
+- [macOS Intel portable ZIP](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/NetForge-1.0.0-rc.9-mac.zip)
+- [macOS Apple Silicon portable ZIP](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/NetForge-1.0.0-rc.9-arm64-mac.zip)
 - [Linux x86_64 AppImage](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge-1.0.0-rc.9-x86_64.AppImage)
 - [Linux ARM64 AppImage](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge-1.0.0-rc.9-arm64.AppImage)
 - [Debian / Ubuntu x86_64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge_1.0.0-rc.9_amd64.deb)
 - [Debian / Ubuntu ARM64 package](https://github.com/krish2214/netforge/releases/download/v1.0.0-rc.9/netforge_1.0.0-rc.9_arm64.deb)
-- [All releases](https://github.com/krish2214/netforge/releases)
 
-Portable macOS and Windows ZIP builds are included in rc.9; native signed installers still require platform-specific signing.
+The Windows and macOS artifacts are portable unsigned ZIP releases. Native signed installers require signing on the respective operating systems.
 
 ## Highlights
 
@@ -24,7 +33,6 @@ Portable macOS and Windows ZIP builds are included in rc.9; native signed instal
 - Automatic retry and stall detection
 - Live throughput, progress grid, and per-network attribution
 - Network naming and color customization
-- Light and dark modes
 - Native desktop notifications
 
 ## Development
@@ -40,8 +48,6 @@ npm run dev
 
 ## Validation
 
-This repository has been validated with:
-
 ```bash
 npm run typecheck
 npm run build
@@ -51,17 +57,11 @@ npm run format:check
 npm run build:linux
 ```
 
-## Building releases
+## GitHub Pages deployment
 
-Build on the target operating system so native dependencies and signing behavior are correct:
+The production site is a static `docs/index.html` page. To configure it manually, open **Repository → Settings → Pages**, choose **Deploy from a branch**, select `main`, and choose `/docs`. GitHub will publish to `https://krish2214.github.io/netforge/`.
 
-```bash
-npm run build:mac
-npm run build:win
-npm run build:linux
-```
-
-See [`BUILD_NOTES.md`](BUILD_NOTES.md) for manual publishing notes. GitHub Actions workflow files are included in the downloadable source archive; this session's GitHub token did not have permission to upload workflow files automatically.
+To make the site visible in the GitHub repository header, set the repository **About → Website** field to the same production URL. This repository has that homepage metadata configured already.
 
 ## License and attribution
 
